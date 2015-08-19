@@ -57,3 +57,49 @@ class TipoTagModelTest(TestCase):
     def test_string(self):
         tipotag = models.TipoTag(nome='nome')
         self.assertEqual(str(tipotag), 'nome')
+
+
+class TagModelTest(TestCase):
+    def test_tipo(self):
+        tipotag = models.TipoTag(nome='tipotag', slug='tipotag')
+
+        tag = models.Tag(tipo=tipotag)
+        self.assertEqual(tag.tipo, tipotag)
+
+    def test_nome(self):
+        tag = models.Tag(nome='nome')
+        self.assertEqual(tag.nome, 'nome')
+
+    def test_slug(self):
+        tag = models.Tag(slug='slug')
+        self.assertEqual(tag.slug, 'slug')
+
+    def test_nome_unique(self):
+        tipotag = models.TipoTag(nome='tipotag', slug='tipotag')
+        tipotag.save()
+
+        tagdb = models.Tag(tipo=tipotag, nome='nomeunique', slug='nomeunique1')
+        tagdb.full_clean()
+        tagdb.save()
+
+        tag = models.Tag(tipo=tipotag, nome='nomeunique', slug='nomeunique2')
+        with self.assertRaises(ValidationError):
+            tag.full_clean()
+            tag.save()
+
+    def test_slug_unique(self):
+        tipotag = models.TipoTag(nome='tipotag', slug='tipotag')
+        tipotag.save()
+
+        tagdb = models.Tag(tipo=tipotag, nome='slugunique1', slug='slugunique')
+        tagdb.full_clean()
+        tagdb.save()
+
+        tag = models.Tag(tipo=tipotag, nome='slugunique2', slug='slugunique')
+        with self.assertRaises(ValidationError):
+            tag.full_clean()
+            tag.save()
+
+    def test_string(self):
+        tag = models.Tag(nome='nome')
+        self.assertEqual(str(tag), 'nome')
