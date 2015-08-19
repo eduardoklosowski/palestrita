@@ -46,3 +46,19 @@ class Palestrante(models.Model):
 
     def __str__(self):
         return self.nome
+
+
+@python_2_unicode_compatible
+class Palestra(models.Model):
+    nome = models.CharField(max_length=256)
+    slug = models.SlugField(unique=True)
+    palestrantes = models.ManyToManyField(Palestrante, related_name='palestras', blank=True)
+    tags = models.ManyToManyField(Tag, related_name='palestras', blank=True)
+    info = models.TextField('informações', blank=True)
+    url = models.URLField('URL', unique=True)
+
+    class Meta:
+        ordering = ('nome',)
+
+    def __str__(self):
+        return self.nome

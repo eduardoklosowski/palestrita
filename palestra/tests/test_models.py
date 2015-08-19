@@ -135,3 +135,67 @@ class PalestranteTest(TestCase):
     def test_string(self):
         palestrante = models.Palestrante(nome='nome')
         self.assertEqual(str(palestrante), 'nome')
+
+
+class PalestraTest(TestCase):
+    def test_nome(self):
+        palestra = models.Palestra(nome='nome')
+        self.assertEqual(palestra.nome, 'nome')
+
+    def test_slug(self):
+        palestra = models.Palestra(slug='slug')
+        self.assertEqual(palestra.slug, 'slug')
+
+    def test_palestrantes(self):
+        palestra = models.Palestra()
+        palestra.save()
+        self.assertListEqual(list(palestra.palestrantes.all()), [])
+
+        palestrante = models.Palestrante(nome='nome', slug='slug')
+        palestrante.save()
+        palestra.palestrantes.add(palestrante)
+        self.assertListEqual(list(palestra.palestrantes.all()), [palestrante])
+
+    def test_tags(self):
+        palestra = models.Palestra()
+        palestra.save()
+        self.assertListEqual(list(palestra.tags.all()), [])
+
+        tipotag = models.TipoTag(nome='nome', slug='slug')
+        tipotag.save()
+        tag = models.Tag(tipo=tipotag, nome='nome', slug='slug')
+        tag.save()
+        palestra.tags.add(tag)
+        self.assertListEqual(list(palestra.tags.all()), [tag])
+
+    def test_info(self):
+        palestra = models.Palestra(info='info')
+        self.assertEqual(palestra.info, 'info')
+
+    def test_url(self):
+        palestra = models.Palestra(url='url')
+        self.assertEqual(palestra.url, 'url')
+
+    def test_slug_unique(self):
+        palestradb = models.Palestra(nome='slugunique', slug='slugunique', url='http://localhost/videodb.ogv')
+        palestradb.full_clean()
+        palestradb.save()
+
+        palestra = models.Palestra(nome='slugunique', slug='slugunique', url='http://localhost/video.ogv')
+        with self.assertRaises(ValidationError):
+            palestra.full_clean()
+            palestra.save()
+
+    def test_url_unique(self):
+        palestradb = models.Palestra(nome='slugunique', slug='sluguniquedb', url='http://localhost/video.ogv')
+        palestradb.full_clean()
+        palestradb.save()
+
+        palestra = models.Palestra(nome='slugunique', slug='sluguniquedb', url='http://localhost/video.ogv')
+        with self.assertRaises(ValidationError):
+            palestra.full_clean()
+            palestra.save()
+
+    def test_string(self):
+        palestra = models.Palestra(nome='nome')
+        self.assertEqual(str(palestra), 'nome')
