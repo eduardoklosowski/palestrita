@@ -1,0 +1,6 @@
+# Python Compilados
+__pycache__/
+*.py[co]
+
+# virtualenv
+/env
