@@ -32,3 +32,17 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.nome
+
+
+@python_2_unicode_compatible
+class Palestrante(models.Model):
+    nome = models.CharField(max_length=256)
+    slug = models.SlugField(unique=True)
+    foto = models.URLField(blank=True)
+    info = models.TextField('informações', blank=True)
+
+    class Meta:
+        ordering = ('nome',)
+
+    def __str__(self):
+        return self.nome

@@ -103,3 +103,35 @@ class TagModelTest(TestCase):
     def test_string(self):
         tag = models.Tag(nome='nome')
         self.assertEqual(str(tag), 'nome')
+
+
+class PalestranteTest(TestCase):
+    def test_nome(self):
+        palestrante = models.Palestrante(nome='nome')
+        self.assertEqual(palestrante.nome, 'nome')
+
+    def test_slug(self):
+        palestrante = models.Palestrante(slug='slug')
+        self.assertEqual(palestrante.slug, 'slug')
+
+    def test_foto(self):
+        palestrante = models.Palestrante(foto='http://localhost/foto.jpg')
+        self.assertEqual(palestrante.foto, 'http://localhost/foto.jpg')
+
+    def test_info(self):
+        palestrante = models.Palestrante(info='info')
+        self.assertEqual(palestrante.info, 'info')
+
+    def test_slug_unique(self):
+        palestrantedb = models.Palestrante(nome='slugunique', slug='slugunique')
+        palestrantedb.full_clean()
+        palestrantedb.save()
+
+        palestrante = models.Palestrante(nome='slugunique', slug='slugunique')
+        with self.assertRaises(ValidationError):
+            palestrante.full_clean()
+            palestrante.save()
+
+    def test_string(self):
+        palestrante = models.Palestrante(nome='nome')
+        self.assertEqual(str(palestrante), 'nome')
