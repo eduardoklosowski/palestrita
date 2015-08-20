@@ -40,3 +40,7 @@ class PalestraListView(PalestraPesquisaFormMixin, generic.ListView):
                     queryset = queryset.exclude(tags=tag)
 
         return queryset
+
+
+class PalestraDetailView(PalestraPesquisaFormMixin, generic.DetailView):
+    model = models.Palestra

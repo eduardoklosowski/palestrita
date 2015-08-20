@@ -1,0 +1,15 @@
+{% extends 'palestra/base.html' %}
+
+
+{% block content %}
+  <section>
+    <h1>{{ palestra }}</h1>
+    <video src="{{ palestra.url }}" controls></video>
+    <a href="{{ palestra.url }}">Link</a>
+    <ul>
+      <li><b>Palestrante:</b> {{ palestra.palestrantes.all|join:', ' }}</li>
+      <li><b>Tags:</b> {{ palestra.tags.all|join:', ' }}</li>
+      <li><b>Info:</b> {{ palestra.info|linebreaksbr }}</li>
+    </ul>
+  </section>
+{% endblock %}
