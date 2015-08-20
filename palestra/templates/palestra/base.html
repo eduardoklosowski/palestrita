@@ -1,9 +1,17 @@
 <!DOCTYPE html>
+{% load staticfiles %}
 <html>
   <head>
     <title>Palestrita</title>
     <meta charset="utf-8">
-    {% block css %}{% endblock %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block css %}
+      <link rel="stylesheet" href="{% static 'foundation/css/normalize.css' %}">
+      <link rel="stylesheet" href="{% static 'foundation/css/foundation.css' %}">
+    {% endblock %}
+    {% block js-head %}
+      <script src="{% static 'modernizr/modernizr.js' %}"></script>
+    {% endblock %}
   </head>
   <body>
     <header>
@@ -18,6 +26,9 @@
       </nav>
     </header>
     {% block content %}{% endblock %}
-    {% block js %}{% endblock %}
+    {% block js %}
+      <script src="{% static 'jquery/dist/jquery.js' %}"></script>
+      <script src="{% static 'foundation/js/foundation.js' %}"></script>
+    {% endblock %}
   </body>
 </html>
