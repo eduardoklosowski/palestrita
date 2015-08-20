@@ -7,7 +7,7 @@
     <video src="{{ palestra.url }}" controls></video>
     <a href="{{ palestra.url }}">Link</a>
     <ul>
-      <li><b>Palestrante:</b> {{ palestra.palestrantes.all|join:', ' }}</li>
+      <li><b>Palestrante:</b> {{ palestra.get_palestrantes_displaylink }}</li>
       <li><b>Tags:</b> {{ palestra.get_tags_displaylink }}</li>
       <li><b>Info:</b> {{ palestra.info|linebreaksbr }}</li>
     </ul>

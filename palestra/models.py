@@ -76,6 +76,12 @@ class Palestra(models.Model):
     def __str__(self):
         return self.nome
 
+    def get_palestrantes_displaylink(self):
+        pesquisa_url = reverse('palestra:palestra_list')
+        palestrantes = ['<a href="%s?palestrante=%s">%s</a>' % (pesquisa_url, palestrante.slug, escape(palestrante))
+                        for palestrante in self.palestrantes.all()]
+        return mark_safe(', '.join(palestrantes))
+
     def get_tags_displaylink(self):
         pesquisa_url = reverse('palestra:palestra_list')
         tags = ['<a href="%s?tag=%s">%s</a>' % (pesquisa_url, tag.slug, escape(tag))
