@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Palestrita</title>
+    <meta charset="utf-8">
+    {% block css %}{% endblock %}
+  </head>
+  <body>
+    <header>
+      <h1><a href="{% url 'palestra:index' %}">Palestrita</a></h1>
+    </header>
+    {% include 'palestra/palestra_pesquisa_form.html' %}
+    {% block content %}{% endblock %}
+    {% block js %}{% endblock %}
+  </body>
+</html>
