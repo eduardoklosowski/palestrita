@@ -8,27 +8,32 @@
     {% block css %}
       <link rel="stylesheet" href="{% static 'foundation/css/normalize.css' %}">
       <link rel="stylesheet" href="{% static 'foundation/css/foundation.css' %}">
+      <link rel="stylesheet" href="{% static 'palestra/base.css' %}">
     {% endblock %}
     {% block js-head %}
       <script src="{% static 'modernizr/modernizr.js' %}"></script>
     {% endblock %}
   </head>
   <body>
-    <header>
-      <h1><a href="{% url 'palestra:index' %}">Palestrita</a></h1>
-      <nav>
-        <ul>
-          <li>
-            <a href="{% url 'palestra:tipotag_list' %}">Tags</a>
-          </li>
+    <nav class="top-bar" data-topbar role="navigation">
+      <ul class="title-area">
+        <li class="name">
+          <h1><a href="{% url 'palestra:index' %}">Palestrita</a></h1>
+        </li>
+        <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+      </ul>
+      <section class="top-bar-section">
+        <ul class="left">
+          <li><a href="{% url 'palestra:tipotag_list' %}">Tags</a></li>
         </ul>
-        {% include 'palestra/palestra_pesquisa_form.html' %}
-      </nav>
-    </header>
+      </section>
+    </nav>
+    {% include 'palestra/palestra_pesquisa_form.html' %}
     {% block content %}{% endblock %}
     {% block js %}
       <script src="{% static 'jquery/dist/jquery.js' %}"></script>
       <script src="{% static 'foundation/js/foundation.js' %}"></script>
+      <script src="{% static 'palestra/base.js' %}"></script>
     {% endblock %}
   </body>
 </html>

@@ -1,6 +1,31 @@
-<form action="{% url 'palestra:palestra_list' %}">
-  <table>
-    {{ palestra_pesquisa_form }}
-  </table>
-  <button type="submit">Pesquisar</button>
+<form class="palestra_pesquisa" action="{% url 'palestra:palestra_list' %}">
+  <div class="row">
+    <div class="small-12 columns">
+      {{ form.non_field_errors }}
+    </div>
+  </div>
+
+  <div class="row collapse">
+    <div class="small-8 columns">
+      {{ palestra_pesquisa_form.nome }}
+    </div>
+    <div class="small-4 columns">
+      <button class="postfix" type="submit">Pesquisar</button>
+    </div>
+    <div class="small-12 columns text-right">
+      <a class="avancado" href="#">Pesquisa Avançada</a>
+    </div>
+  </div>
+
+  <div class="row avancada">
+    <div class="small-6 large-4 columns">
+      {{ palestra_pesquisa_form.tag.label_tag }} {{ palestra_pesquisa_form.tag }}
+    </div>
+    <div class="small-6 large-4 columns">
+      {{ palestra_pesquisa_form.excludetag.label_tag }} {{ palestra_pesquisa_form.excludetag }}
+    </div>
+    <div class="small-12 large-4 columns">
+      {{ palestra_pesquisa_form.palestrante.label_tag }} {{ palestra_pesquisa_form.palestrante }}
+    </div>
+  </div>
 </form>
