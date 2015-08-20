@@ -48,3 +48,7 @@ class PalestraListView(PalestraPesquisaFormMixin, generic.ListView):
 
 class PalestraDetailView(PalestraPesquisaFormMixin, generic.DetailView):
     model = models.Palestra
+
+
+class TipoTagListView(PalestraPesquisaFormMixin, generic.ListView):
+    model = models.TipoTag

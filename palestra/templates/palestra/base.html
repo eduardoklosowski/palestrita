@@ -8,8 +8,15 @@
   <body>
     <header>
       <h1><a href="{% url 'palestra:index' %}">Palestrita</a></h1>
+      <nav>
+        <ul>
+          <li>
+            <a href="{% url 'palestra:tipotag_list' %}">Tags</a>
+          </li>
+        </ul>
+        {% include 'palestra/palestra_pesquisa_form.html' %}
+      </nav>
     </header>
-    {% include 'palestra/palestra_pesquisa_form.html' %}
     {% block content %}{% endblock %}
     {% block js %}{% endblock %}
   </body>
