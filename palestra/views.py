@@ -39,6 +39,10 @@ class PalestraListView(PalestraPesquisaFormMixin, generic.ListView):
                 for tag in tags:
                     queryset = queryset.exclude(tags=tag)
 
+            if filtroform.cleaned_data.get('palestrante'):
+                palestrante = models.Palestrante.objects.filter(slug=filtroform.cleaned_data.get('palestrante'))
+                queryset = queryset.filter(palestrantes=palestrante)
+
         return queryset
 
 
