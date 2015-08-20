@@ -9,7 +9,7 @@
           <h1><a href="{% url 'palestra:palestra' palestra.slug %}">{{ palestra }}</a></h1>
           <ul>
             <li><b>Palestrante:</b> {{ palestra.palestrantes.all|join:', ' }}</li>
-            <li><b>Tags:</b> {{ palestra.tags.all|join:', ' }}</li>
+            <li><b>Tags:</b> {{ palestra.get_tags_displaylink }}</li>
             <li><b>Info:</b> {{ palestra.info|linebreaksbr }}</li>
           </ul>
         </li>
