@@ -1,0 +1,19 @@
+{% extends 'palestra/base.html' %}
+
+
+{% block content %}
+  <section>
+    <ul>
+      {% for palestra in palestra_list %}
+        <li>
+          <h1>{{ palestra }}</h1>
+          <ul>
+            <li><b>Palestrante:</b> {{ palestra.palestrantes.all|join:', ' }}</li>
+            <li><b>Tags:</b> {{ palestra.tags.all|join:', ' }}</li>
+            <li><b>Info:</b> {{ palestra.info|linebreaksbr }}</li>
+          </ul>
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+{% endblock %}
