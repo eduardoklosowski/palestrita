@@ -4,6 +4,8 @@ __pycache__/
 
 # virtualenv
 /env
+/node_modules
 
 # Intância
+/components
 /*.sqlite3

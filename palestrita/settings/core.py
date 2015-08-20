@@ -17,7 +17,14 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'djangobower',
     'palestra',
+)
+
+BOWER_INSTALLED_APPS = (
+    'foundation',
+    'jquery',
+    'modernizr',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -46,3 +53,9 @@ TEMPLATES = [
         },
     },
 ]
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'djangobower.finders.BowerFinder',
+)

@@ -12,6 +12,7 @@ ALLOWED_HOSTS = []
 TIME_ZONE = 'UTC'
 
 STATIC_URL = '/static/'
+BOWER_COMPONENTS_ROOT = os.path.join(BASE_DIR, 'components')
 
 DATABASES = {
     'default': {
