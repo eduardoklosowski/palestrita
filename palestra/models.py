@@ -37,6 +37,9 @@ class Tag(models.Model):
     def __str__(self):
         return self.nome
 
+    def get_cor(self):
+        return self.tipo.cor
+
 
 @python_2_unicode_compatible
 class Palestrante(models.Model):
@@ -85,7 +88,7 @@ class Palestra(models.Model):
 
     def get_tags_displaylink(self):
         pesquisa_url = reverse('palestra:palestra_list')
-        tags = ['<a href="%s?tag=%s">%s</a>' % (pesquisa_url, tag.slug, escape(tag))
+        tags = ['<a href="%s?tag=%s" style="color:%s">%s</a>' % (pesquisa_url, tag.slug, tag.get_cor(), escape(tag))
                 for tag in self.tags.all()]
         return mark_safe(', '.join(tags))
 

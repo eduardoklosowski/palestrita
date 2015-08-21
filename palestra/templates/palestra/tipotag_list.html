@@ -5,11 +5,11 @@
   <section>
     <ul>
       {% for tipotag in tipotag_list %}
-        <li>
+        <li style="color:{{ tipotag.cor }}">
           {{ tipotag }}
           <ul>
             {% for tag in tipotag.tags.all %}
-              <li><a href="{% url 'palestra:palestra_list' %}?tag={{ tag.slug }}">{{ tag }}</a></li>
+              <li><a href="{% url 'palestra:palestra_list' %}?tag={{ tag.slug }}" style="color:{{ tipotag.cor }}">{{ tag }}</a></li>
             {% endfor %}
           </ul>
         </li>
