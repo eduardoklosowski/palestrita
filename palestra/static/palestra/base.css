@@ -2,6 +2,13 @@ select[multiple] {
   height: 10rem;
 }
 
+.avatar {
+  width: 128px;
+  border: 1px solid #ccc;
+  margin: 15px;
+  padding: 5px;
+}
+
 .palestra_pesquisa {
   border-bottom: 1px solid #ccc;
   margin: 15px;

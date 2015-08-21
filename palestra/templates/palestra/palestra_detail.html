@@ -6,13 +6,26 @@
     <div class="row">
       <div class="small-12 columns palestra_detail">
         <h1>{{ palestra }}</h1>
+        <div class="row">
+          <div class="small-10 columns">
+            {{ palestra.get_tags_displaylink }}
+          </div>
+          <div class="small-2 columns text-right">
+            <a href="{{ palestra.url }}">Link</a>
+          </div>
+        </div>
         {{ palestra.get_player_display }}
-        <a href="{{ palestra.url }}">Link</a>
-        <ul>
-          <li><b>Palestrante:</b> {{ palestra.get_palestrantes_displaylink }}</li>
-          <li><b>Tags:</b> {{ palestra.get_tags_displaylink }}</li>
-          <li><b>Info:</b> {{ palestra.info|linebreaksbr }}</li>
+        <ul class="small-block-grid-1 medium-block-grid-2">
+          {% for palestrante in palestra.palestrantes.all %}
+            <li>
+              <a href="{% url 'palestra:palestra_list' %}?palestrante={{ palestrante.slug }}">
+                <img class="avatar" src="{{ palestrante.get_foto_link }}" alt="avatar">
+                {{ palestrante }}
+              </a>
+            </li>
+          {% endfor %}
         </ul>
+        {{ palestra.info|linebreaksbr|default:'<i>Sem descrição</i>' }}
       </div>
     </div>
   </section>

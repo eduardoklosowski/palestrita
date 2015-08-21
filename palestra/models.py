@@ -3,6 +3,7 @@
 from django.core.urlresolvers import reverse
 from django.core.validators import RegexValidator
 from django.db import models
+from django.templatetags.static import static
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.html import escape
 from django.utils.safestring import mark_safe
@@ -64,6 +65,11 @@ class Palestrante(models.Model):
     has_info.boolean = True
     has_info.short_description = 'tem info?'
 
+    def get_foto_link(self):
+        if self.foto:
+            return self.foto
+        return static('palestra/avatar.png')
+
 
 @python_2_unicode_compatible
 class Palestra(models.Model):
@@ -88,9 +94,10 @@ class Palestra(models.Model):
 
     def get_tags_displaylink(self):
         pesquisa_url = reverse('palestra:palestra_list')
-        tags = ['<a href="%s?tag=%s" style="color:%s">%s</a>' % (pesquisa_url, tag.slug, tag.get_cor(), escape(tag))
+        tags = ['<a href="%s?tag=%s"><span class="label round" style="background-color:%s">%s</span></a>' %
+                (pesquisa_url, tag.slug, tag.get_cor(), escape(tag))
                 for tag in self.tags.all()]
-        return mark_safe(', '.join(tags))
+        return mark_safe(' '.join(tags))
 
     def get_player_display(self):
         url = urlparse(self.url)
