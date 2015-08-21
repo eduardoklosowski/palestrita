@@ -3,13 +3,17 @@
 
 {% block content %}
   <section>
-    <h1>{{ palestra }}</h1>
-    <video src="{{ palestra.url }}" controls></video>
-    <a href="{{ palestra.url }}">Link</a>
-    <ul>
-      <li><b>Palestrante:</b> {{ palestra.get_palestrantes_displaylink }}</li>
-      <li><b>Tags:</b> {{ palestra.get_tags_displaylink }}</li>
-      <li><b>Info:</b> {{ palestra.info|linebreaksbr }}</li>
-    </ul>
+    <div class="row">
+      <div class="small-12 columns palestra_detail">
+        <h1>{{ palestra }}</h1>
+        <video src="{{ palestra.url }}" controls></video>
+        <a href="{{ palestra.url }}">Link</a>
+        <ul>
+          <li><b>Palestrante:</b> {{ palestra.get_palestrantes_displaylink }}</li>
+          <li><b>Tags:</b> {{ palestra.get_tags_displaylink }}</li>
+          <li><b>Info:</b> {{ palestra.info|linebreaksbr }}</li>
+        </ul>
+      </div>
+    </div>
   </section>
 {% endblock %}

@@ -10,3 +10,8 @@ select[multiple] {
 .palestra_list {
   list-style: none;
 }
+
+.palestra_detail video {
+  display: block;
+  margin: 0 auto;
+}
