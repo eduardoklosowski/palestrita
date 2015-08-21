@@ -6,3 +6,7 @@ select[multiple] {
   border-bottom: 1px solid #ccc;
   margin: 15px;
 }
+
+.palestra_list {
+  list-style: none;
+}

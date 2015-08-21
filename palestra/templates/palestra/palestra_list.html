@@ -3,17 +3,21 @@
 
 {% block content %}
   <section>
-    <ul>
-      {% for palestra in palestra_list %}
-        <li>
-          <h1><a href="{% url 'palestra:palestra' palestra.slug %}">{{ palestra }}</a></h1>
-          <ul>
-            <li><b>Palestrante:</b> {{ palestra.get_palestrantes_displaylink }}</li>
-            <li><b>Tags:</b> {{ palestra.get_tags_displaylink }}</li>
-            <li><b>Info:</b> {{ palestra.info|linebreaksbr }}</li>
-          </ul>
-        </li>
-      {% endfor %}
-    </ul>
+    <div class="row">
+      <div class="small-12 coluns">
+        <ul class='palestra_list'>
+          {% for palestra in palestra_list %}
+            <li>
+              <h1><a href="{% url 'palestra:palestra' palestra.slug %}">{{ palestra }}</a></h1>
+              <ul>
+                <li><b>Palestrante:</b> {{ palestra.get_palestrantes_displaylink }}</li>
+                <li><b>Tags:</b> {{ palestra.get_tags_displaylink }}</li>
+                <li><b>Info:</b> {{ palestra.info|linebreaksbr }}</li>
+              </ul>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
   </section>
 {% endblock %}
