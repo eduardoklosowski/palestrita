@@ -3,17 +3,21 @@
 
 {% block content %}
   <section>
-    <ul>
-      {% for tipotag in tipotag_list %}
-        <li style="color:{{ tipotag.cor }}">
-          {{ tipotag }}
-          <ul>
-            {% for tag in tipotag.tags.all %}
-              <li><a href="{% url 'palestra:palestra_list' %}?tag={{ tag.slug }}" style="color:{{ tipotag.cor }}">{{ tag }}</a></li>
-            {% endfor %}
-          </ul>
-        </li>
-      {% endfor %}
-    </ul>
+    <div class="row">
+      <div class="small-12 columns">
+        <ul>
+          {% for tipotag in tipotag_list %}
+            <li style="color:{{ tipotag.cor }}">
+              {{ tipotag }}
+              <ul>
+                {% for tag in tipotag.tags.all %}
+                  <li><a href="{% url 'palestra:palestra_list' %}?tag={{ tag.slug }}" style="color:{{ tipotag.cor }}">{{ tag }}</a></li>
+                {% endfor %}
+              </ul>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
   </section>
 {% endblock %}
