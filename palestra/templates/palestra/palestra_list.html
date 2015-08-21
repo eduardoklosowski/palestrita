@@ -5,6 +5,7 @@
   <section>
     <div class="row">
       <div class="small-12 coluns">
+        {% include 'palestra/pagination.html' %}
         <ul class='palestra_list'>
           {% for palestra in palestra_list %}
             <li>
@@ -17,6 +18,7 @@
             </li>
           {% endfor %}
         </ul>
+        {% include 'palestra/pagination.html' %}
       </div>
     </div>
   </section>

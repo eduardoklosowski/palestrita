@@ -19,6 +19,7 @@ class IndexView(PalestraPesquisaFormMixin, generic.TemplateView):
 
 class PalestraListView(PalestraPesquisaFormMixin, generic.ListView):
     model = models.Palestra
+    paginate_by = 25
 
     def get_queryset(self):
         queryset = super(PalestraListView, self).get_queryset()
@@ -44,6 +45,15 @@ class PalestraListView(PalestraPesquisaFormMixin, generic.ListView):
                 queryset = queryset.filter(palestrantes=palestrante)
 
         return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super(PalestraListView, self).get_context_data(**kwargs)
+
+        query_args = [arg.split('=') for arg in self.request.META['QUERY_STRING'].split('&')]
+        query_args = '&'.join('='.join(arg) for arg in query_args if arg[0] != 'page')
+        context['query_args'] = query_args
+
+        return context
 
 
 class PalestraDetailView(PalestraPesquisaFormMixin, generic.DetailView):
