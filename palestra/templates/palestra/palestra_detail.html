@@ -6,7 +6,7 @@
     <div class="row">
       <div class="small-12 columns palestra_detail">
         <h1>{{ palestra }}</h1>
-        <video src="{{ palestra.url }}" controls></video>
+        {{ palestra.get_player_display }}
         <a href="{{ palestra.url }}">Link</a>
         <ul>
           <li><b>Palestrante:</b> {{ palestra.get_palestrantes_displaylink }}</li>

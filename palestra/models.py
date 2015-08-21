@@ -6,6 +6,7 @@ from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.html import escape
 from django.utils.safestring import mark_safe
+from urllib.parse import urlparse
 
 
 validate_cor = RegexValidator('^#[0-9A-Fa-f]{6}$')
@@ -87,3 +88,11 @@ class Palestra(models.Model):
         tags = ['<a href="%s?tag=%s">%s</a>' % (pesquisa_url, tag.slug, escape(tag))
                 for tag in self.tags.all()]
         return mark_safe(', '.join(tags))
+
+    def get_player_display(self):
+        url = urlparse(self.url)
+        if url.netloc == 'www.youtube.com':
+            query = dict(arg.split('=') for arg in url.query.split('&'))
+            if 'v' in query:
+                return mark_safe('<iframe src="https://www.youtube.com/embed/%s"></iframe>' % query['v'])
+        return mark_safe('<video src="%s" controls></video>' % self.url)

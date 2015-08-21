@@ -11,7 +11,12 @@ select[multiple] {
   list-style: none;
 }
 
-.palestra_detail video {
+.palestra_detail video,
+.palestra_detail iframe {
+  width: 853px;
+  max-width: 100%;
+  height: 480px;
   display: block;
   margin: 0 auto;
+  border: 0;
 }
