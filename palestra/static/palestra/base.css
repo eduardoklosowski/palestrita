@@ -18,6 +18,10 @@ select[multiple] {
   list-style: none;
 }
 
+.palestra_list h1 {
+  font-size: 1.5rem;
+}
+
 .palestra_detail video,
 .palestra_detail iframe {
   width: 853px;
