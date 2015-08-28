@@ -13,7 +13,7 @@
               <ul>
                 <li><b>Palestrante:</b> {{ palestra.get_palestrantes_displaylink }}</li>
                 <li><b>Tags:</b> {{ palestra.get_tags_displaylink }}</li>
-                <li><b>Info:</b> {{ palestra.info|linebreaksbr }}</li>
+                <li class="text-justify"><b>Info:</b> {{ palestra.info|linebreaksbr }}</li>
               </ul>
             </li>
           {% endfor %}

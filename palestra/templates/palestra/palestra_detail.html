@@ -25,7 +25,9 @@
             </li>
           {% endfor %}
         </ul>
-        {{ palestra.info|linebreaksbr|default:'<i>Sem descrição</i>' }}
+        <div class="text-justify">
+          {{ palestra.info|linebreaksbr|default:'<i>Sem descrição</i>' }}
+        </div>
       </div>
     </div>
   </section>
