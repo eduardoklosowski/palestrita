@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# ENV
+PYTHONPATH="$OPENSHIFT_REPO_DIR"
+
+# Banco de dados
+
+python "$PYTHONPATH/manage.py" migrate --noinput
+
+
+# /static/
+
+[ -d "$OPENSHIFT_REPO_DIR/wsgi/static" ] || mkdir -p "$OPENSHIFT_REPO_DIR/wsgi/static"
+python "$PYTHONPATH/manage.py" collectstatic --clear --noinput
