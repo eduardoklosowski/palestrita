@@ -41,6 +41,10 @@ class Tag(models.Model):
     def get_cor(self):
         return self.tipo.cor
 
+    def get_label_display(self):
+        pesquisa_url = reverse('palestra:palestra_list')
+        return mark_safe('<a href="%s?tag=%s"><span class="label round" style="background-color:%s">%s</span></a>' % (pesquisa_url, self.slug, self.get_cor(), escape(self)))
+
 
 @python_2_unicode_compatible
 class Palestrante(models.Model):
@@ -94,9 +98,7 @@ class Palestra(models.Model):
 
     def get_tags_displaylink(self):
         pesquisa_url = reverse('palestra:palestra_list')
-        tags = ['<a href="%s?tag=%s"><span class="label round" style="background-color:%s">%s</span></a>' %
-                (pesquisa_url, tag.slug, tag.get_cor(), escape(tag))
-                for tag in self.tags.all()]
+        tags = [tag.get_label_display() for tag in self.tags.all()]
         return mark_safe(' '.join(tags))
 
     def get_player_display(self):

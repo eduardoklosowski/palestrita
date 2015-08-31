@@ -5,13 +5,13 @@
   <section>
     <div class="row">
       <div class="small-12 columns">
-        <ul>
+        <ul class="square">
           {% for tipotag in tipotag_list %}
-            <li style="color:{{ tipotag.cor }}">
-              {{ tipotag }}
+            <li>
+              <b>{{ tipotag }}</b>
               <ul>
                 {% for tag in tipotag.tags.all %}
-                  <li><a href="{% url 'palestra:palestra_list' %}?tag={{ tag.slug }}" style="color:{{ tipotag.cor }}">{{ tag }}</a></li>
+                  <li>{{ tag.get_label_display }}</li>
                 {% endfor %}
               </ul>
             </li>
