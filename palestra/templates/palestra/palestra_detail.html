@@ -1,4 +1,5 @@
 {% extends 'palestra/base.html' %}
+{% load palestras %}
 
 
 {% block content %}
@@ -8,25 +9,26 @@
         <h1>{{ palestra }}</h1>
         <div class="row">
           <div class="small-10 columns">
-            {{ palestra.get_tags_displaylink }}
+            {% tags_labels palestra.tags.all %}
           </div>
           <div class="small-2 columns text-right">
-            <a href="{{ palestra.url }}">Link</a>
+            {% videos_links palestra.videos.all %}
           </div>
         </div>
-        {{ palestra.get_player_display }}
+        {% videos_players palestra.videos.all %}
         <ul class="small-block-grid-1 medium-block-grid-2">
           {% for palestrante in palestra.palestrantes.all %}
             <li>
               <a href="{% url 'palestra:palestra_list' %}?palestrante={{ palestrante.slug }}">
-                <img class="avatar" src="{{ palestrante.get_foto_link }}" alt="avatar">
+                <img class="avatar" src="{{ palestrante.foto_link }}" alt="avatar">
                 {{ palestrante }}
-              </a>
+              </a><br>
+              {{ palestrante.info|linebreaksbr|default:'<i>Sem informações</i>' }}
             </li>
           {% endfor %}
         </ul>
         <div class="text-justify">
-          {{ palestra.info|linebreaksbr|default:'<i>Sem descrição</i>' }}
+          {{ palestra.info|linebreaksbr|default:'<i>Sem informações</i>' }}
         </div>
       </div>
     </div>

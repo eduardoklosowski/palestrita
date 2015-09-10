@@ -22,23 +22,25 @@ class PalestraListView(PalestraPesquisaFormMixin, generic.ListView):
 
         filtroform = forms.PalestraPesquisaForm(self.request.GET)
         if filtroform.is_valid():
-            if filtroform.cleaned_data.get('nome'):
+            if filtroform.cleaned_data['nome']:
                 for palavra in filtroform.cleaned_data['nome'].split():
                     queryset = queryset.filter(nome__icontains=palavra)
 
-            if filtroform.cleaned_data.get('tag'):
-                tags = models.Tag.objects.filter(slug__in=filtroform.cleaned_data.get('tag'))
+            if filtroform.cleaned_data['tag']:
+                tags = models.Tag.objects.filter(slug__in=filtroform.cleaned_data['tag'])
                 for tag in tags:
                     queryset = queryset.filter(tags=tag)
 
-            if filtroform.cleaned_data.get('excludetag'):
-                tags = models.Tag.objects.filter(slug__in=filtroform.cleaned_data.get('excludetag'))
+            if filtroform.cleaned_data['excludetag']:
+                tags = models.Tag.objects.filter(slug__in=filtroform.cleaned_data['excludetag'])
                 for tag in tags:
                     queryset = queryset.exclude(tags=tag)
 
-            if filtroform.cleaned_data.get('palestrante'):
-                palestrante = models.Palestrante.objects.filter(slug=filtroform.cleaned_data.get('palestrante'))
+            if filtroform.cleaned_data['palestrante']:
+                palestrante = models.Palestrante.objects.filter(slug=filtroform.cleaned_data['palestrante'])
                 queryset = queryset.filter(palestrantes=palestrante)
+
+        queryset = queryset.prefetch_related('palestrantes', 'tags')
 
         return queryset
 
@@ -55,6 +57,16 @@ class PalestraListView(PalestraPesquisaFormMixin, generic.ListView):
 class PalestraDetailView(PalestraPesquisaFormMixin, generic.DetailView):
     model = models.Palestra
 
+    def get_queryset(self):
+        queryset = super(PalestraDetailView, self).get_queryset()
+        queryset = queryset.prefetch_related('tags', 'palestrantes', 'videos')
+        return queryset
+
 
 class TipoTagListView(PalestraPesquisaFormMixin, generic.ListView):
     model = models.TipoTag
+
+    def get_queryset(self):
+        queryset = super(TipoTagListView, self).get_queryset()
+        queryset = queryset.prefetch_related('tags')
+        return queryset

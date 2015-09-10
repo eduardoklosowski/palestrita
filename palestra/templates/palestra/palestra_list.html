@@ -1,4 +1,5 @@
 {% extends 'palestra/base.html' %}
+{% load palestras %}
 
 
 {% block content %}
@@ -11,9 +12,18 @@
             <li>
               <h1><a href="{% url 'palestra:palestra' palestra.slug %}">{{ palestra }}</a></h1>
               <ul>
-                <li><b>Palestrante:</b> {{ palestra.get_palestrantes_displaylink }}</li>
-                <li><b>Tags:</b> {{ palestra.get_tags_displaylink }}</li>
-                <li class="text-justify"><b>Info:</b> {{ palestra.info|linebreaksbr }}</li>
+                <li>
+                  <b>Palestrante:</b>
+                  {% palestrantes_links palestra.palestrantes.all %}
+                </li>
+                <li>
+                  <b>Tags:</b>
+                  {% tags_labels palestra.tags.all %}
+                </li>
+                <li class="text-justify">
+                  <b>Info:</b>
+                  {{ palestra.info|linebreaksbr|default:'<i>Sem informações</i>' }}
+                </li>
               </ul>
             </li>
           {% endfor %}
