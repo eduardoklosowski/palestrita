@@ -1,13 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from django.core.urlresolvers import reverse
 from django.core.validators import RegexValidator
 from django.db import models
 from django.templatetags.static import static
 from django.utils.encoding import python_2_unicode_compatible
-from django.utils.html import escape
-from django.utils.safestring import mark_safe
-from urllib.parse import urlparse
 
 
 validate_cor = RegexValidator('^#[0-9A-Fa-f]{6}$')
@@ -15,9 +11,9 @@ validate_cor = RegexValidator('^#[0-9A-Fa-f]{6}$')
 
 @python_2_unicode_compatible
 class TipoTag(models.Model):
+    slug = models.SlugField(primary_key=True)
     nome = models.CharField(max_length=32, unique=True)
-    slug = models.SlugField(unique=True)
-    cor = models.CharField(max_length=32, default='#000000', validators=[validate_cor])
+    cor = models.CharField(max_length=7, default='#000000', validators=[validate_cor])
 
     class Meta:
         ordering = ('nome',)
@@ -29,27 +25,24 @@ class TipoTag(models.Model):
 @python_2_unicode_compatible
 class Tag(models.Model):
     tipo = models.ForeignKey(TipoTag, related_name='tags')
+    slug = models.SlugField(primary_key=True)
     nome = models.CharField(max_length=32, unique=True)
-    slug = models.SlugField(unique=True)
 
     class Meta:
-        ordering = ('nome',)
+        ordering = ('tipo', 'nome')
 
     def __str__(self):
         return self.nome
 
-    def get_cor(self):
+    @property
+    def cor(self):
         return self.tipo.cor
-
-    def get_label_display(self):
-        pesquisa_url = reverse('palestra:palestra_list')
-        return mark_safe('<a href="%s?tag=%s"><span class="label round" style="background-color:%s">%s</span></a>' % (pesquisa_url, self.slug, self.get_cor(), escape(self)))
 
 
 @python_2_unicode_compatible
 class Palestrante(models.Model):
+    slug = models.SlugField(primary_key=True)
     nome = models.CharField(max_length=256)
-    slug = models.SlugField(unique=True)
     foto = models.URLField(blank=True)
     info = models.TextField('informações', blank=True)
 
@@ -69,7 +62,8 @@ class Palestrante(models.Model):
     has_info.boolean = True
     has_info.short_description = 'tem info?'
 
-    def get_foto_link(self):
+    @property
+    def foto_link(self):
         if self.foto:
             return self.foto
         return static('palestra/avatar.png')
@@ -77,12 +71,11 @@ class Palestrante(models.Model):
 
 @python_2_unicode_compatible
 class Palestra(models.Model):
+    slug = models.SlugField(primary_key=True)
     nome = models.CharField(max_length=256)
-    slug = models.SlugField(unique=True)
     palestrantes = models.ManyToManyField(Palestrante, related_name='palestras', blank=True)
     tags = models.ManyToManyField(Tag, related_name='palestras', blank=True)
     info = models.TextField('informações', blank=True)
-    url = models.URLField('URL', unique=True)
 
     class Meta:
         ordering = ('nome',)
@@ -90,21 +83,15 @@ class Palestra(models.Model):
     def __str__(self):
         return self.nome
 
-    def get_palestrantes_displaylink(self):
-        pesquisa_url = reverse('palestra:palestra_list')
-        palestrantes = ['<a href="%s?palestrante=%s">%s</a>' % (pesquisa_url, palestrante.slug, escape(palestrante))
-                        for palestrante in self.palestrantes.all()]
-        return mark_safe(', '.join(palestrantes))
 
-    def get_tags_displaylink(self):
-        pesquisa_url = reverse('palestra:palestra_list')
-        tags = [tag.get_label_display() for tag in self.tags.all()]
-        return mark_safe(' '.join(tags))
+@python_2_unicode_compatible
+class Video(models.Model):
+    palestra = models.ForeignKey(Palestra, related_name='videos')
+    url = models.URLField('URL', unique=True)
 
-    def get_player_display(self):
-        url = urlparse(self.url)
-        if url.netloc == 'www.youtube.com':
-            query = dict(arg.split('=') for arg in url.query.split('&'))
-            if 'v' in query:
-                return mark_safe('<iframe src="https://www.youtube.com/embed/%s"></iframe>' % query['v'])
-        return mark_safe('<video src="%s" controls></video>' % self.url)
+    class Meta:
+        ordering = ('palestra', 'url')
+        verbose_name = 'vídeo'
+
+    def __str__(self):
+        return self.url
