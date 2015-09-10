@@ -13,10 +13,6 @@ class PalestraPesquisaFormMixin(object):
         return context
 
 
-class IndexView(PalestraPesquisaFormMixin, generic.TemplateView):
-    template_name = 'palestra/index.html'
-
-
 class PalestraListView(PalestraPesquisaFormMixin, generic.ListView):
     model = models.Palestra
     paginate_by = 25
