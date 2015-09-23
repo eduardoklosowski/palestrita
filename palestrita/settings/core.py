@@ -14,6 +14,7 @@ LANGUAGE_CODE = 'pt-br'
 
 
 INSTALLED_APPS = (
+    'flat',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

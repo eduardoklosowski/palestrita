@@ -1,3 +1,4 @@
 Django>=1.8,<1.9
 django-bower
+django-flat-theme
 django_compressor
