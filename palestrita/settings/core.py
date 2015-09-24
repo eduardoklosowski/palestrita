@@ -23,8 +23,6 @@ INSTALLED_APPS = (
 
 BOWER_INSTALLED_APPS = (
     'foundation',
-    'jquery',
-    'modernizr',
 )
 
 MIDDLEWARE_CLASSES = (

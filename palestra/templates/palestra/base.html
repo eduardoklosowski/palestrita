@@ -11,7 +11,7 @@
       <link rel="stylesheet" href="{% static 'palestra/base.css' %}">
     {% endblock %}
     {% block js-head %}
-      <script src="{% static 'modernizr/modernizr.js' %}"></script>
+      <script src="{% static 'foundation/js/vendor/modernizr.js' %}"></script>
     {% endblock %}
   </head>
   <body>
@@ -31,7 +31,7 @@
     {% include 'palestra/palestra_pesquisa_form.html' %}
     {% block content %}{% endblock %}
     {% block js %}
-      <script src="{% static 'jquery/dist/jquery.js' %}"></script>
+      <script src="{% static 'foundation/js/vendor/jquery.js' %}"></script>
       <script src="{% static 'foundation/js/foundation.js' %}"></script>
       <script src="{% static 'palestra/base.js' %}"></script>
     {% endblock %}
