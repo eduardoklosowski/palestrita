@@ -13,6 +13,7 @@ TIME_ZONE = 'UTC'
 
 STATIC_URL = '/static/'
 BOWER_COMPONENTS_ROOT = os.path.join(BASE_DIR, 'components')
+COMPRESS_ROOT = os.path.join(BASE_DIR, 'compress')
 
 DATABASES = {
     'default': {

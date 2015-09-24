@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 
+from django.conf import global_settings
+
+
 WSGI_APPLICATION = 'palestrita.wsgi.application'
 ROOT_URLCONF = 'palestrita.urls'
 
@@ -18,6 +21,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'djangobower',
+    'compressor',
     'palestra',
 )
 
@@ -52,8 +56,7 @@ TEMPLATES = [
     },
 ]
 
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+STATICFILES_FINDERS = global_settings.STATICFILES_FINDERS + (
     'djangobower.finders.BowerFinder',
+    'compressor.finders.CompressorFinder',
 )

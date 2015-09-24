@@ -1,17 +1,22 @@
 <!DOCTYPE html>
 {% load staticfiles %}
+{% load compress %}
 <html>
   <head>
     <title>Palestrita</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% block css %}
-      <link rel="stylesheet" href="{% static 'foundation/css/normalize.css' %}">
-      <link rel="stylesheet" href="{% static 'foundation/css/foundation.css' %}">
-      <link rel="stylesheet" href="{% static 'palestra/base.css' %}">
+      {% compress css %}
+        <link rel="stylesheet" href="{% static 'foundation/css/normalize.css' %}">
+        <link rel="stylesheet" href="{% static 'foundation/css/foundation.css' %}">
+        <link rel="stylesheet" href="{% static 'palestra/base.css' %}">
+      {% endcompress %}
     {% endblock %}
     {% block js-head %}
-      <script src="{% static 'foundation/js/vendor/modernizr.js' %}"></script>
+      {% compress js %}
+        <script src="{% static 'foundation/js/vendor/modernizr.js' %}"></script>
+      {% endcompress %}
     {% endblock %}
   </head>
   <body>
@@ -31,9 +36,11 @@
     {% include 'palestra/palestra_pesquisa_form.html' %}
     {% block content %}{% endblock %}
     {% block js %}
-      <script src="{% static 'foundation/js/vendor/jquery.js' %}"></script>
-      <script src="{% static 'foundation/js/foundation.js' %}"></script>
-      <script src="{% static 'palestra/base.js' %}"></script>
+      {% compress js %}
+        <script src="{% static 'foundation/js/vendor/jquery.js' %}"></script>
+        <script src="{% static 'foundation/js/foundation.js' %}"></script>
+        <script src="{% static 'palestra/base.js' %}"></script>
+      {% endcompress %}
     {% endblock %}
   </body>
 </html>

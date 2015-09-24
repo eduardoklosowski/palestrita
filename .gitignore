@@ -8,4 +8,5 @@ __pycache__/
 
 # Intância
 /components
+/compress
 /*.sqlite3
