@@ -25,5 +25,6 @@ var palestra = {
 };
 
 (function() {
+  $(document).foundation();
   palestra.init();
 }());
